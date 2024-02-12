@@ -1,15 +1,26 @@
 package nl.novi.techiteasy.controllers;
 
+import nl.novi.techiteasy.models.Television;
+import nl.novi.techiteasy.repositories.TelevisionRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/televisions")
 @RestController
 public class TelevisionsController {
-//    GET-request voor alle televisies
+    private final TelevisionRepository televisionRepository;
+
+    public TelevisionsController(TelevisionRepository televisionRepository) {
+        this.televisionRepository = televisionRepository;
+    }
+
+    //    GET-request voor alle televisies
     @GetMapping()
-    public ResponseEntity<String> getTelevisions(){
-        return ResponseEntity.ok("This is the televisions placeholder string");
+    public ResponseEntity<List<Television>> getTelevisions(){
+        List<Television> televisions = televisionRepository.findAll();
+        return ResponseEntity.ok(televisions);
     }
 //    GET-request voor 1 televisie
     @GetMapping("/{id}")
@@ -33,8 +44,4 @@ public class TelevisionsController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/api/weather/current/coordinates")
-    public String GetWeatherCoordinates(@RequestParam double lat, @RequestParam double lon) {
-        return "Regenachtig bij Latitude " + lat + " Longtitude " + lon;
-    }
 }
