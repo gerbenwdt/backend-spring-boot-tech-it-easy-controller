@@ -1,15 +1,8 @@
-package nl.novi.techiteasy.models;
+package nl.novi.techiteasy.dtos;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "Televisions")
-public class Television {
-    @Id
-    @GeneratedValue
+public class ResponseTelevisionDto {
     private Long id;
     private String type;
-    @Column(nullable = false)
     private String brand;
     private String name;
     private Double price;
@@ -23,51 +16,27 @@ public class Television {
     private Boolean hdr;
     private Boolean bluetooth;
     private Boolean ambiLight;
-    private Integer originalStock;
-    private Integer sold;
 
-//  default constructor
-    public Television(){}
+    public ResponseTelevisionDto() {
+    }
 
-//  constructor
-public Television(
-            Long id,
-            String type,
-            String brand,
-            String name,
-            Double price,
-            Double availableSize,
-            Double refreshRate,
-            String screenType,
-            String screenQuality,
-            Boolean smartTv,
-            Boolean wifi,
-            Boolean voiceControl,
-            Boolean hdr,
-            Boolean bluetooth,
-            Boolean ambiLight,
-            Integer originalStock,
-            Integer sold ) {
-    this.id = id;
-    this.type = type;
-    this.brand = brand;
-    this.name = name;
-    this.price = price;
-    this.availableSize = availableSize;
-    this.refreshRate = refreshRate;
-    this.screenType = screenType;
-    this.screenQuality = screenQuality;
-    this.smartTv = smartTv;
-    this.wifi = wifi;
-    this.voiceControl = voiceControl;
-    this.hdr = hdr;
-    this.bluetooth = bluetooth;
-    this.ambiLight = ambiLight;
-    this.originalStock = originalStock;
-    this.sold = sold;
-}
-
-//  alle getters en setters
+    public ResponseTelevisionDto(Long id, String type, String brand, String name, Double price, Double availableSize, Double refreshRate, String screenType, String screenQuality, Boolean smartTv, Boolean wifi, Boolean voiceControl, Boolean hdr, Boolean bluetooth, Boolean ambiLight) {
+        this.id = id;
+        this.type = type;
+        this.brand = brand;
+        this.name = name;
+        this.price = price;
+        this.availableSize = availableSize;
+        this.refreshRate = refreshRate;
+        this.screenType = screenType;
+        this.screenQuality = screenQuality;
+        this.smartTv = smartTv;
+        this.wifi = wifi;
+        this.voiceControl = voiceControl;
+        this.hdr = hdr;
+        this.bluetooth = bluetooth;
+        this.ambiLight = ambiLight;
+    }
 
     public Long getId() {
         return id;
@@ -187,21 +156,5 @@ public Television(
 
     public void setAmbiLight(Boolean ambiLight) {
         this.ambiLight = ambiLight;
-    }
-
-    public Integer getOriginalStock() {
-        return originalStock;
-    }
-
-    public void setOriginalStock(Integer originalStock) {
-        this.originalStock = originalStock;
-    }
-
-    public Integer getSold() {
-        return sold;
-    }
-
-    public void setSold(Integer sold) {
-        this.sold = sold;
     }
 }

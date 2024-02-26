@@ -1,7 +1,9 @@
 package nl.novi.techiteasy.controllers;
 
+import jakarta.validation.Valid;
+import nl.novi.techiteasy.dtos.RequestTelevisionDto;
 import nl.novi.techiteasy.models.Television;
-import nl.novi.techiteasy.repositories.TelevisionRepository;
+import nl.novi.techiteasy.services.TelevisionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,28 +11,29 @@ import java.util.List;
 
 @RequestMapping("/televisions")
 @RestController
-public class TelevisionsController {
-    private final TelevisionRepository televisionRepository;
+public class TelevisionController {
+    private final TelevisionService televisionService;
 
-    public TelevisionsController(TelevisionRepository televisionRepository) {
-        this.televisionRepository = televisionRepository;
+    public TelevisionController(TelevisionService televisionService) {
+        this.televisionService = televisionService;
     }
 
     //    GET-request voor alle televisies
     @GetMapping()
     public ResponseEntity<List<Television>> getTelevisions(){
-        List<Television> televisions = televisionRepository.findAll();
+        List<Television> televisions = televisionService.getTelevisions();
         return ResponseEntity.ok(televisions);
     }
 //    GET-request voor 1 televisie
     @GetMapping("/{id}")
-    public ResponseEntity<String> getTelevision(@PathVariable Integer id){
-        return ResponseEntity.ok("televisions met id: " + id);
+    public ResponseEntity<Television> getTelevision(@PathVariable Long id){
+        Television television = televisionService.getTelevision(id);
+        return ResponseEntity.ok(television);
     }
 //    POST-request voor 1 televisie
     @PostMapping()
-    public ResponseEntity<Void> addTelevision(@RequestBody String television){
-        System.out.println(television);
+    public ResponseEntity<Void> addTelevision(@Valid @RequestBody RequestTelevisionDto television){
+        televisionService.addTelevision(television);
         return ResponseEntity.created(null).build();
     }
 //    PUT-request voor 1 televisie
@@ -41,6 +44,7 @@ public class TelevisionsController {
 //    DELETE-request voor 1 televisie
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTelevision(@PathVariable Long id){
+
         return ResponseEntity.noContent().build();
     }
 
